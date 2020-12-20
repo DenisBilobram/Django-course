@@ -1,0 +1,12 @@
+{% extends 'mainapp/base.html' %}
+{% block content %}
+    <form method="POST">{% csrf_token %}
+        {% for field in form %}
+            {% if field.name == 'password' %}
+            {% else %}
+            {{ field.label }}:{{ field }}
+            {% endif %}
+        {% endfor %}
+        <input type="submit" value="Edit"/>
+    </form>
+{% endblock %}

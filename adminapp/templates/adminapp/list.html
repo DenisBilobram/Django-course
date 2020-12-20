@@ -1,0 +1,8 @@
+{% extends 'adminapp/base.html' %}
+{% block content %}
+{% if users %}
+ {% include 'adminapp/includes/inc_users.html' %}
+{% elif products %}
+ {% include 'adminapp/includes/inc_products.html' %}
+{% endif %}
+{% endblock %}

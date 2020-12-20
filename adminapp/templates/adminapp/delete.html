@@ -1,0 +1,6 @@
+{% extends 'adminapp/base.html' %}
+{% block content %}
+<form method="POST" action="{% url "adminapp:products-delete" product.id %}">
+   {% csrf_token %}<input type="submit" value="DELETE">
+</form>
+{% endblock %}

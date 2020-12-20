@@ -1,0 +1,15 @@
+<ul class="menu">
+    <li><a href="{% url 'mainapp:index' %}" {% if request.resolver_match.url_name == "" %}class="active"{% endif %}>домой</a></li>
+    <li><a href="{% url 'products:category' 'all' %}" {% if request.resolver_match.url_name == "index" or request.resolver_match.url_name == "category" %}class="active"{% endif %}>продукты</a></li>
+    <li><a href="{% url 'mainapp:contact' %}" {% if request.resolver_match.url_name == "contact" %}class="active"{% endif %}>контакты</a></li>
+    {% if user.is_authenticated %}
+        {{ user.username }} | <a href="{% url 'users:logout' %}">logout</a>
+    {% else %}
+        <a href="{% url 'users:login' %}">login</a>
+        <a href="{% url 'users:registr' %}">registration</a>
+    {% endif %}
+</ul>
+<a href="#" class="search"></a>
+<a href="{% url 'basket:index' %}" class="basket">
+    <div style="position: relative; left: 30px;">{% if basket %}{{ basket.total_quantity }}, {{ basket.total_cost }}{% endif %}</div>
+</a>

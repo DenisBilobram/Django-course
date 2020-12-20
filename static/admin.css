@@ -1,0 +1,43 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Arial, sans-serif;
+}
+header {
+    padding: 10px;
+    background-color: rgb(101, 101, 238);
+}
+.conteiner {
+    max-width: 1096px;
+    margin: 0 auto;
+}
+.munu__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style-type: none;
+}
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+}
+.users__block {
+    width: fit-content;
+    margin: 20px auto;
+
+}
+.user__block {
+    display: flex;
+    flex-direction: row;
+    margin: 20px auto;
+    width: fit-content;
+}
+.data {
+    margin-left: 10px;
+}
+.block__products {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}

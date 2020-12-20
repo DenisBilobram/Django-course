@@ -1,0 +1,6 @@
+.registr_form {
+    display: flex;
+    width: fit-content;
+    flex-direction: column;
+    margin: 0 auto;
+}

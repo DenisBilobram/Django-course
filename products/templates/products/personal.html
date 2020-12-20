@@ -1,0 +1,22 @@
+{% extends 'mainapp/base.html' %} {% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'personal.css' %}">
+{% endblock %}
+{% block menu %}
+<div class="hero-white">
+    <div class="header clearfix">
+        <a href="{% url 'mainapp:index' %}" class="logo"></a>
+        {% include 'mainapp/includes/inc_main_menu.html' %}
+        <a href="#" class="search"></a>
+        <a href="#" class="basket"></a>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="product__block">
+    <div class="product">
+        <img src="{{ product.image.url }}" style="width: 300px;"/>
+        <a href="{% url 'basket:add' product.id %}" class="product__order">Заказать</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+<div class="users__block">
+    {% for product in page_obj %}
+        <span><a href="{% url 'adminapp:products-personal' product.id %}">Product {{ product.name|title }}</a></span>
+        <button class="edit_button"><a href="{% url 'adminapp:products-edit' product.id %}">Edit</a></button>
+        <button class="edit_button"><a href="{% url 'adminapp:products-delete' product.id %}">Delete</a></button><br>
+    {% endfor %}
+    <button><a href="{% url 'adminapp:products-create' %}">Create</a></button>
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="{% url 'adminapp:products' page_obj.previous_page_number %}">&laquo;</a>
+            {% endif %}
+            <span class="current">
+                {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="{% url 'adminapp:products' page_obj.next_page_number %}">&raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+</div>

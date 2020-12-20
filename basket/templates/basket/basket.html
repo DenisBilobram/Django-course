@@ -1,0 +1,32 @@
+{% extends "mainapp/base.html" %}
+{% load static %}
+{% block js %}
+{% endblock %}
+{% block menu %}
+<div class="hero-white">
+    <div class="header clearfix">
+        <a href="{% url 'mainapp:index' %}" class="logo"></a>
+        {% include 'mainapp/includes/inc_main_menu.html' %}
+        <a href="#" class="search"></a>
+        <a href="#" class="basket"></a>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="products">
+    <div class="related-products clearfix">
+        {% for basket in baskets %}
+            <div class="block made_my" style="width: 185px; height: 205px;">
+                <div style="position: relative; top: 20px; left: 20px; color: red;">{{ basket.quantity }}</div>
+                <a href="{% url 'basket:delete' basket.id %}">
+                    <img src="{{ basket.product.image.url }}" alt="" class="prod_img" style="width: 100%"/>
+                    <div class="text" style="width: 185px; height: 205px;">
+                        <span>Delete</span>
+                        <h4>{{ basket.product.name }}</h4>
+                    </div>
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

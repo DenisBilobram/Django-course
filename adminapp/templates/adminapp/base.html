@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% if title %} {{ title }}
+        {% else %} Document {% endif %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'admin.css' %}">
+    {% block css %}
+    {% endblock %}
+    {% block js %}
+    {% endblock %}
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+            <div class="conteiner">
+                {% include 'adminapp/includes/inc_adminapp_header.html' %}
+            </div>
+        </header>
+
+        <main>
+            <div class="conteiner">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </main>
+            
+            <footer>
+                {% block footer %}
+                {% endblock %}
+            </footer>
+        </div>
+    </div>
+</body>
+</html>
