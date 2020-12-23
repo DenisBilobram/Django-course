@@ -22,6 +22,6 @@
             {{ field.label }}{{ field }}
         {% endfor %}
         <input type="submit" value="Login"/>
-        
+        <a href="{% url 'social:begin' 'vk-oauth2' %}?next=/mainapp">Вход чере ВК</a>
     </form>
 {% endblock %}

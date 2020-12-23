@@ -3,10 +3,13 @@
         Name:<br>
         Age:<br>
         Avatar:<br>
+        Is active:<br>
     </div>
     <div class="data">
         {{ user_detail.get_full_name }}<br>
         {{ user_detail.age }} y.o<br>
-        <img src="{{ user_detail.avatar.url }}" alt="" style="width: 200px; height: 100px;"/>
+        <img src="{{ user_detail.avatar.url }}" alt="" style="width: 200px; height: 100px;"/><br>
+        {{ user_detail.is_active}}<br>
+        {{ user.activation_key }}
     </div>
 </div>

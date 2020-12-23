@@ -19,7 +19,7 @@ def adminview(request):
 class UsersView(ListView):
     model = ModUser
     template_name = 'adminapp/list.html'
-    context_object_name = 'users'
+    context_object_name = 'users_detail'
     paginate_by = 2
 
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
@@ -56,7 +56,9 @@ class UsersEdit(UpdateView):
 
 class UsersDelete(DeleteView):
     model = ModUser
+    template_name = 'adminapp/delete.html'
     success_url = reverse_lazy('adminapp:users')
+    context_object_name = "user_detail"
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
     def dispatch(self, *args, **kwargs):
         return super().dispatch(*args, **kwargs)

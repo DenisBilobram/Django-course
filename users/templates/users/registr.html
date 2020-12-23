@@ -14,7 +14,7 @@
 </div>
 {% endblock %}
 {% block content %}
-    <form method="POST" class="registr_form">{% csrf_token %}
+    <form method="POST" class="registr_form" enctype="multipart/form-data">{% csrf_token %}
         {{ form.errors }}
         {% for field in form %}
             {{ field.label }}{{ field }}

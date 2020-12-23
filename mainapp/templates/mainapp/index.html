@@ -8,7 +8,7 @@
 					<li><a href="{% url 'products:category' 'all' %}">продукты</a></li>
 					<li><a href="{% url 'mainapp:contact' %}">контакты</a></li>
 					{% if user.is_authenticated %}
-        				{{ user.username }} | <a href="{% url 'users:logout' %}">logout</a>
+        				<a href="{% url 'users:edit' %}">{{ user.username }}</a> | <a href="{% url 'users:logout' %}">logout</a>
 					{% else %}
 						<a href="{% url 'users:login' %}">login</a>
 						<a href="{% url 'users:registr' %}">registration</a>

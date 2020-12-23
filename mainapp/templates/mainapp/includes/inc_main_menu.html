@@ -3,7 +3,7 @@
     <li><a href="{% url 'products:category' 'all' %}" {% if request.resolver_match.url_name == "index" or request.resolver_match.url_name == "category" %}class="active"{% endif %}>продукты</a></li>
     <li><a href="{% url 'mainapp:contact' %}" {% if request.resolver_match.url_name == "contact" %}class="active"{% endif %}>контакты</a></li>
     {% if user.is_authenticated %}
-        {{ user.username }} | <a href="{% url 'users:logout' %}">logout</a>
+        <a href="{% url 'users:edit' %}">{{ user.username }}</a> | <a href="{% url 'users:logout' %}">logout</a>
     {% else %}
         <a href="{% url 'users:login' %}">login</a>
         <a href="{% url 'users:registr' %}">registration</a>
