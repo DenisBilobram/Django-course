@@ -1,18 +1,24 @@
 from django.shortcuts import render, redirect
-from .forms import UserRegistrForm, UserEditForm, ModUserProfileEditForm
+from .forms import UserRegistrForm, UserEditForm, ProfileEditForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.urls import reverse
+from .models import Profile, Activation
+import random, hashlib
 from django.contrib import auth
-from .models import ModUser
+from django.contrib.auth.models import User
 
 def RegistrView(request):
     form = UserRegistrForm()
     if request.method == 'POST':
         form = UserRegistrForm(request.POST, request.FILES)
         if form.is_valid():
-            # form.instance.is_active = False
+            form.instance.is_active = False
             user = form.save()
+            Profile.objects.create(user=user)
+            salt = hashlib.sha1(str(random.random()).encode('utf8')).hexdigest()[:6]
+            activation_key = hashlib.sha1((form.instance.email + salt).encode('utf8')).hexdigest()
+            Activation.objects.create(user=user, activation_key=activation_key)
             if send_verify_mail(user):
                 print('succes')
             else:
@@ -22,17 +28,18 @@ def RegistrView(request):
 
 def EditView(request):
     form = UserEditForm(instance=request.user)
-    profile_form = ModUserProfileEditForm(instance=request.user.moduserprofile)
+    profile_form = ProfileEditForm(instance=request.user.profile)
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=request.user)
-        profile_form = ModUserProfileEditForm(request.POST, instance=request.user.shopuserprofile)
+        profile_form = ProfileEditForm(request.POST, request.FILES, instance=request.user.profile)
         if form.is_valid() and profile_form.is_valid():
             form.save()
+            profile_form.save()
             return redirect('users:edit')
     return render(request, 'users/edit.html', {'title': 'Edit', 'form': form, 'profile_form': profile_form})
 
 def send_verify_mail(user):
-    verify_link = reverse('users:verify', args=[user.email, user.activation_key])
+    verify_link = reverse('users:verify', args=[user.email, user.activation.activation_key])
     title = f'Подтверждение учетной записи {user.username}'
     message = f'Для подтверждения учетной записи {user.username} на портале \
     {settings.DOMAIN_NAME} перейдите по ссылке: \n{settings.DOMAIN_NAME}{verify_link}'
@@ -40,9 +47,9 @@ def send_verify_mail(user):
 
 def verify(request, email, activation_key):
     try:
-        user = ModUser.objects.get(email=email)
-        if user.activation_key == activation_key and user.is_activation_key_good():
-            user.activation_key = ''
+        user = User.objects.get(email=email)
+        if user.activation.activation_key == activation_key and user.activation.is_activation_key_good():
+            user.activation.activation_key = ''
             user.is_active = True
             user.save()
             auth.login(request, user, backend='django.contrib.auth.backends.ModelBackend')

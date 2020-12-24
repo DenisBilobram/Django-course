@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'taroz(r9eob%m4-n#x^#y#%099a+lv)cdd5d4d=(54v@$)k2k$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = 'users.ModUser'
+# AUTH_USER_MODEL = 'users.ModUser'
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/

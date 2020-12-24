@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'users.css' %}">
 {% endblock %}
 {% block content %}
-    <form method="POST">{% csrf_token %}
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
         {% for field in form %}
             {% if field.name == 'password' %}
             {% else %}

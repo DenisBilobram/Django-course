@@ -5,7 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from users.forms import UserRegistrForm, UserEditForm
 from products.forms import ProductCreateForm
-from users.models import ModUser
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from products.models import Product
@@ -17,7 +17,7 @@ def adminview(request):
     return render(request, 'adminapp/base.html', {'title': title})
 
 class UsersView(ListView):
-    model = ModUser
+    model = User
     template_name = 'adminapp/list.html'
     context_object_name = 'users_detail'
     paginate_by = 2
@@ -27,7 +27,7 @@ class UsersView(ListView):
         return super().dispatch(*args, **kwargs)
 
 class UsersPersonal(DetailView):
-    model = ModUser
+    model = User
     template_name = 'adminapp/detail.html'
     context_object_name = 'user_detail'
     @method_decorator(user_passes_test(lambda u: u.is_superuser))
@@ -35,7 +35,7 @@ class UsersPersonal(DetailView):
         return super().dispatch(*args, **kwargs)
     
 class UsersCreate(CreateView):
-    model = ModUser
+    model = User
     template_name = 'adminapp/create.html'
     context_object_name = 'form'
     success_url = reverse_lazy('adminapp:users')
@@ -45,7 +45,7 @@ class UsersCreate(CreateView):
         return super().dispatch(*args, **kwargs)
     
 class UsersEdit(UpdateView):
-    model = ModUser
+    model = User
     template_name = 'adminapp/edit.html'
     success_url = reverse_lazy('adminapp:users')
     context_object_name = 'form'
@@ -55,7 +55,7 @@ class UsersEdit(UpdateView):
         return super().dispatch(*args, **kwargs)
 
 class UsersDelete(DeleteView):
-    model = ModUser
+    model = User
     template_name = 'adminapp/delete.html'
     success_url = reverse_lazy('adminapp:users')
     context_object_name = "user_detail"
