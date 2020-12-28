@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from django.conf import settings
 from datetime import timedelta
 
 class Profile(models.Model):
@@ -11,7 +12,7 @@ class Profile(models.Model):
         (FEMALE, 'Ж'),
     )
 
-    user = models.OneToOneField(User, unique=True, null=False,\
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True, null=False,\
                                 db_index=True, on_delete=models.CASCADE)
     tagline = models.CharField(max_length=128, blank=True)
     aboutMe = models.TextField(max_length=512, blank=True)
@@ -20,7 +21,7 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to='users_avatars', blank=True)
 
 class Activation(models.Model):
-    user = models.OneToOneField(User, unique=True, null=False,\
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, unique=True, null=False,\
                                 db_index=True, on_delete=models.CASCADE)
     activation_key = models.CharField(max_length=128, blank=True)
     activation_key_expires = models.DateTimeField(default=(now()+timedelta(hours=48)))

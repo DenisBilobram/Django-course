@@ -4,3 +4,9 @@
     flex-direction: column;
     margin: 0 auto;
 }
+.edit_form_user {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    margin: 0 auto;
+}

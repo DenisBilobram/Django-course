@@ -9,9 +9,13 @@
 					<li><a href="{% url 'mainapp:contact' %}">контакты</a></li>
 					{% if user.is_authenticated %}
         				<a href="{% url 'users:edit' %}">{{ user.username }}</a> | <a href="{% url 'users:logout' %}">logout</a>
+						<a href="{% url 'ordersapp:list' %}">orders</a>
 					{% else %}
 						<a href="{% url 'users:login' %}">login</a>
 						<a href="{% url 'users:registr' %}">registration</a>
+					{% endif %}
+					{% if user.is_superuser %}
+					<a href="{% url 'adminapp:users' %}">admin</a>
 					{% endif %}
 				</ul>
 				<a href="#" class="search"></a>
@@ -44,15 +48,6 @@
 						<div class="text">
 							<img src="{% static 'img/icon-hover.png' %}" alt="img">
 							<h4>Отличный стул</h4>
-							<p>Расположитесь комфортно. </p>
-						</div> 
-					</a>
-				</div>
-				<div class="block">
-					<a href="#"><img src="media/{{ product.image }}" alt="" style="width: 130%;"> 
-						<div class="text">
-							<img src="{% static 'img/icon-hover.png' %}" alt="img">
-							<h4>Новый стул</h4>
 							<p>Расположитесь комфортно. </p>
 						</div> 
 					</a>

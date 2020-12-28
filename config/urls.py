@@ -19,11 +19,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # path('admin/', admin.site.urls),
     path('admin/', include('adminapp.urls', namespace='adminapp')),
     path('mainapp/', include('mainapp.urls', namespace='mainapp')),
     path('users/', include('users.urls', namespace='users')),
     path('products/', include('products.urls', namespace='products')),
     path('basket/', include('basket.urls', namespace='basket')),
+    path('orders/', include('ordersapp.urls', namespace='ordersapp')),
     path('', include('social_django.urls', namespace='social')),
 ]
 

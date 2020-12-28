@@ -20,7 +20,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                           'api.vk.com',
                           '/method/users.get',
                           None,
-                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_id')),
+                          urlencode(OrderedDict(fields=','.join(('bdate', 'sex', 'about', 'photo_400_orig')),
                                                 access_token=response['access_token'],
                                                 v='5.92')),
                           None
@@ -29,6 +29,7 @@ def save_user_profile(backend, user, response, *args, **kwargs):
     resp = requests.get(api_url)
     if resp.status_code != 200:
         return
+    
     
     if created:
         data = resp.json()['response'][0]
@@ -49,12 +50,13 @@ def save_user_profile(backend, user, response, *args, **kwargs):
                 user.delete()
                 raise AuthForbidden('social_core.backends.vk.VKOAuth2')
 
-        avatar = urlopen(response['photo']).read()
+        avatar = urlopen(data['photo_400_orig']).read()
         out = open(f"media\\users_avatars\\{response['id']}.jpg", "wb")
         out.write(avatar)
         out.close
         profile.avatar = f"users_avatars/{response['id']}.jpg"
         # profile_form = ProfileEditForm(instance=user.profile, avatar=avatar)
+
 
     profile.save()
     user.save()
