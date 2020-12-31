@@ -1,5 +1,11 @@
 {% extends "ordersapp/base.html" %}
 {% load static %}
+{% load my_tags %}
+{% block js %}
+{{ block.super }}
+<script src="{% static 'js/orders_scripts.js' %}"></script>
+<script src="{% static 'js/jquery.formset.js' %}"></script>
+{% endblock %}
 
 {% block content %}
    {% include 'ordersapp/includes/inc_order_summary.html' %}
@@ -11,7 +17,7 @@
                {{ orderitems.management_form }}
                {% for form in orderitems.forms %}
                    {% if forloop.first %}
-                       <thead>
+                   <thead>
                        <tr>
                            {% for field in form.visible_fields %}
                                <th class="{% cycle 'td1' 'td2' 'td3' %} order formset_td">
@@ -19,18 +25,21 @@
                                </th>
                            {% endfor %}
                        </tr>
-                       </thead>
+                    </thead>
                    {% endif %}
                    <tr class="formset_row">
                        {% for field in form.visible_fields %}
-                           <td class="{% cycle 'td1' 'td2' 'td3' %} order formset_td">
-                               {% if forloop.first %}
-                                   {% for hidden in form.hidden_fields %}
-                                       {{ hidden }}
-                                   {% endfor %}
-                               {% endif %}
-                               {{ field.errors.as_ul }}
-                               {{ field }}
+                           <td class="{% cycle 'td1' 'td2' 'td3' 'td4' %} order formset_td">
+                                {% if forloop.first %}
+                                    {% for hidden in form.hidden_fields %}
+                                        {{ hidden }}
+                                    {% endfor %}
+                                {% endif %}
+                                {% if field.name != 'price' %}
+                                    {{ field }}
+                                {% else %}
+                                        {{ field|add_attr:"disabled:disabled" }}руб
+                                {% endif %}
                            </td>
                        {% endfor %}
                    </tr>
@@ -40,5 +49,4 @@
            {% include 'ordersapp/includes/inc_order_actions.html' %}
        </form>
    </div>
-
 {% endblock %}
