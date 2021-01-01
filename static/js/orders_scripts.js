@@ -34,7 +34,7 @@ function update_total_count() {
 function delete_row(row) {
     try {
         row[0].remove();
-        let price = parseInt(row[0].querySelector("span").innerText);
+        let price = parseInt(row[0].querySelector('input[type="text"]').value);
         let cost = parseInt(document.querySelector('.order_total_cost').innerText);
         if (!isNaN(price)) cost -= price;
         document.querySelector('.order_total_cost').innerHTML = cost;
